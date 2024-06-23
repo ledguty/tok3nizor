@@ -1,10 +1,13 @@
 import streamlit as st
 import PyPDF2
 import spacy
-import es_core_news_sm
 
 # Cargar el modelo de español de spaCy
-nlp = es_core_news_sm.load()
+@st.cache_resource
+def load_model():
+    return spacy.load("es_core_news_sm")
+
+nlp = load_model()
 
 def leer_archivo(archivo):
     if archivo.type == "application/pdf":
